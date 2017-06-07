@@ -29,6 +29,21 @@ var albumPicasso = {
      ]
  };
 
+ var albumCaprese = {
+     title: 'Year of the Caprese',
+     artist: 'Cherub',
+     label: 'TW',
+     year: '2011',
+     albumArtUrl: 'assets/images/album_covers/20.png',
+     songs: [
+         { title: 'Simple', duration: '1:01' },
+         { title: 'Doses and Mimosas', duration: '5:01' },
+         { title: 'Lauren', duration: '3:21'},
+         { title: 'Pagliacci', duration: '3:14' },
+         { title: 'Party time', duration: '2:15'}
+     ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -66,4 +81,14 @@ var albumPicasso = {
 
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+     var albums = [albumPicasso, albumMarconi, albumCaprese];
+     var index = 1;
+     albumImage.addEventListener("click", function(event){
+       setCurrentAlbum(album);
+       index++;
+       if(index == albums.length){
+         index = 0;
+       }
+     });
+
  };
