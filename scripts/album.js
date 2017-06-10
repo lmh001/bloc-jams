@@ -29,10 +29,25 @@ var albumPicasso = {
      ]
  };
 
+ var albumCaprese = {
+     title: 'Year of the Caprese',
+     artist: 'Cherub',
+     label: 'TW',
+     year: '2011',
+     albumArtUrl: 'assets/images/album_covers/20.png',
+     songs: [
+         { title: 'Simple', duration: '1:01' },
+         { title: 'Doses and Mimosas', duration: '5:01' },
+         { title: 'Lauren', duration: '3:21'},
+         { title: 'Pagliacci', duration: '3:14' },
+         { title: 'Party time', duration: '2:15'}
+     ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
-      + '  <td class="song-item-number">' + songNumber + '</td>'
+      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
@@ -46,7 +61,6 @@ var albumPicasso = {
      var albumTitle = document.getElementsByClassName('album-view-title')[0];
      var albumArtist = document.getElementsByClassName('album-view-artist')[0];
      var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
      var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
      // #2
@@ -63,7 +77,32 @@ var albumPicasso = {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
  };
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+var songRows = document.getElementsByClassName('album-view-song-item');
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+     songListContainer.addEventListener('mouseover', function(event) {
+       // #1
+       if (event.target.parentElement.className === 'album-view-song-item') {
+               event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+         }
+  });
+  for (var i = 0; i < songRows.length; i++) {
+        songRows[i].addEventListener('mouseleave', function(event) {
+             this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+        });
+    }
+     var albums = [albumPicasso, albumMarconi, albumCaprese];
+     var index = 1;
+     albumImage.addEventListener("click", function(event){
+       setCurrentAlbum(albums[index]);
+       index++;
+       if(index == albums.length){
+         index = 0;
+       }
+     });
+
  };
