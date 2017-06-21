@@ -54,7 +54,9 @@ var getSongNumberCell = function(number){
      }
  };
       updatePlayerBarSong();
-  	} else if (currentlyPlayingSongNumber === songNumber) {
+
+
+    else if (currentlyPlayingSongNumber === songNumber) {
       +            if (currentSoundFile.isPaused()) {
   +                $(this).html(pauseButtonTemplate);
   +                $('.main-controls .play-pause').html(playerBarPauseButton);
@@ -191,6 +193,9 @@ var $previousButton = $('.main-controls .previous');
  var $nextButton = $('.main-controls .next');
 
  $(document).ready(function() {
+   var togglePlayFromPlayerBar =$('.main-controls .play-pause').click(function(){
+     
+   });
      setCurrentAlbum(albumPicasso);
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
